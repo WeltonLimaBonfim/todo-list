@@ -16,6 +16,9 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+
+		<!-- Spring Dependency -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -33,16 +36,24 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- DataBase Dependency -->
+
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.29</version>
 		</dependency>
+
+		<!-- Lombok Dependency -->
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Spring test -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -54,22 +65,34 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Jwt token Dependency -->
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
 
+		<!-- Swagger Dependency -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.9.2</version>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.23</version>
 		</dependency>
+
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.9.2</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.9</version>
 		</dependency>
+
+		<!-- Codegen Dependecy -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -85,6 +108,35 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>io.swagger.codegen.v3</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>3.0.19</version>
+				<executions>
+					<execution>
+						<id>generate-provider-service-interface</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>src/main/resources/swagger/todo-list.yaml</inputSpec>
+							<language>spring</language>
+							<library>spring-boot</library>
+							<modelPackage>com.api.todolist.provider.representation</modelPackage>
+							<apiPackage>com.api.todolist.provider.api</apiPackage>
+							<configOptions>
+								<delegatePattern>true</delegatePattern>
+								<interfaceOnly>true</interfaceOnly>
+								<dateLibrary>java8</dateLibrary>
+							</configOptions>
+							<modelNameSuffix>Representation</modelNameSuffix>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<generateApiTests>false</generateApiTests>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
