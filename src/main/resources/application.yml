@@ -1,0 +1,51 @@
+spring:
+  config:
+    activate:
+      on-profiles: local
+  application:
+    name: todo-list
+    description: API todo-list
+server:
+  address: 0.0.0.0
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+  security:
+    basic:
+      enabled: false
+management:
+  server:
+    port: 9090
+    security:
+      enabled: false
+  endpoint:
+    health:
+      show-details: ALWAYS
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics
+
+---
+spring:
+  config:
+    on-profiles: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/todolistdb?useTimezone=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: todolistapplication
+    password: 12345
+  jpa:
+    hibernate.ddl-auto: update
+    hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      jdbc: time_zone = TimeZone
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+jwt:
+  secret: I8HVe8X4SmFQHElaglTc1m828eVIiz
+

@@ -1,0 +1,34 @@
+CREATE TABLE TbUser (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    ClientId VARCHAR(50) NOT NULL,
+    ClientSecret VARCHAR(50) NOT NULL,
+    FlAdmin CHAR(1) NOT NULL,
+    DtInsert DATETIME NOT NULL,
+    DtUpdate DATETIME,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE TbStatus (
+    Id INT NOT NULL AUTO_INCREMENT,
+    Description VARCHAR(10),
+    DtInsert DATETIME NOT NULL,
+    DtUpdate DATETIME,
+    PRIMARY KEY (Id)
+);
+
+CREATE TABLE TbTask (
+    Id INT NOT NULL AUTO_INCREMENT,
+    IdUser INT NOT NULL,
+    IdStatus INT NOT NULL,
+    Resume VARCHAR(100),
+    Description VARCHAR(100),
+    DtInsert DATETIME NOT NULL,
+    DtUpdate DATETIME,
+    PRIMARY KEY (Id),
+    FOREIGN KEY (IdUser) REFERENCES TbUser(Id),
+    FOREIGN KEY (IdStatus) REFERENCES TbStatus(Id)
+);
+
+
