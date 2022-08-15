@@ -1,10 +1,12 @@
-FROM maven:3-jdk-11
+FROM adoptopenjdk/openjdk11:alpine-jre
 
-ARG JAR_FILE=target/todo-list.jar
+# Refer to Maven build -> finalName
+ARG JAR_FILE=target/todolist.jar
 
-WORKDIR ../todo-list
+# cd /opt/app
+WORKDIR /opt/app
 
-COPY . .
+COPY ${JAR_FILE} app.jar
 
-RUN mvn clean install
-CMD mvn spring-boot:run
+# java -jar /opt/app/app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
