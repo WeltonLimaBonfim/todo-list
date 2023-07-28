@@ -39,11 +39,11 @@ public class TaskEntity {
 
     @CreatedDate
     @Column(name = "DtInsert", nullable = false, updatable = false)
-    private LocalDateTime dtInsert = LocalDateTime.now();
+    private LocalDateTime dtInsert;
 
     @LastModifiedDate
     @Column(name = "DtUpdate")
-    private LocalDateTime dtUpdate = LocalDateTime.now();
+    private LocalDateTime dtUpdate;
 
     public TaskEntity(UserEntity user, StatusEntity status, String resume, String description) {
         this.user = user;
